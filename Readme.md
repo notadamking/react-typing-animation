@@ -37,7 +37,7 @@ Try *link to live demo*
 git clone https://github.com/adamjking3/react-typing-animation
 cd react-typing-animation
 npm install
-npm run start
+npm start
 ```
 
 Then open http://localhost:3000/ in a browser.
