@@ -3,6 +3,7 @@
   "rules": {
     "react/jsx-filename-extension": 0,
     "react/require-default-props": 0,
+    "no-mixed-operators": 0,
   },
   "parser": "babel-eslint",
   "plugins": ["react"],

@@ -1,5 +1,7 @@
 const path = require('path');
-const AssetsPlugin = require('assets-webpack-plugin');
+// const AssetsPlugin = require('assets-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
@@ -9,16 +11,11 @@ module.exports = {
   devtool: isProduction ? 'source-map' : 'eval',
   context: path.resolve(__dirname, './'),
   entry: isProduction
-    ? {
-      app: ['./index.js'],
-      vendor: ['react', 'react-dom'],
-    }
+    ? './index.js'
     : ['webpack-hot-middleware/client', 'react-hot-loader/patch', './index.js'],
   output: {
-    filename: '[name]-[hash].js',
-    chunkFilename: '[name]-[chunkhash].js',
-    path: path.resolve(__dirname, './build/public'),
-    publicPath: isProduction ? '/' : 'http://localhost:3000/',
+    filename: 'main.js',
+    path: path.resolve(__dirname, './build'),
   },
   module: {
     rules: [
@@ -34,26 +31,46 @@ module.exports = {
         exclude: /(node_modules|build)/,
         loader: 'babel-loader',
       },
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: isProduction
+          ? ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+                { loader: 'css-loader?modules&importLoaders=1&localIdentName=[hash:base64:4]' },
+                { loader: 'postcss-loader' },
+            ],
+          })
+          : [
+              { loader: 'style-loader' },
+            {
+              loader: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+            },
+              { loader: 'postcss-loader' },
+          ],
+      },
+      { test: /\.(png|jpg|ico|woff|woff2|ttf|eot|svg)$/, loader: 'file-loader' },
     ],
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': isProduction
-        ? JSON.stringify('production')
-        : JSON.stringify('development'),
-      __DEVELOPMENT__: !isProduction,
-    }),
-    new AssetsPlugin({
-      path: path.resolve(__dirname, './build'),
-    }),
+    // new AssetsPlugin({
+    //   path: path.resolve(__dirname, './build'),
+    // }),
+    new CopyWebpackPlugin([{ from: './public', to: './' }]),
     new HtmlWebpackPlugin({
       template: './template.html',
     }),
     ...(isProduction
       ? [
-        new webpack.optimize.CommonsChunkPlugin({
-          name: 'vendor',
+        new ExtractTextPlugin({
+          filename: 'styles/main.css',
+          allChunks: true,
+          publicPath: 'styles/',
         }),
+          // new webpack.optimize.CommonsChunkPlugin({
+          //   name: 'vendor',
+          // }),
         new webpack.optimize.UglifyJsPlugin({
           output: {
             comments: false,

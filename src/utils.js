@@ -10,6 +10,8 @@ const isTypingComponent = struct =>
     sub => struct.type && struct.type.getName && struct.type.getName() === sub,
   );
 
+export const getRandomInRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
 export const extractText = (...args) => {
   const traverse = (node) => {
     if (isTypingComponent(node)) {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { extractText, replaceTreeText } from './utils';
+import { getRandomInRange, extractText, replaceTreeText } from './utils';
 import Backspace from './Backspace';
 import Reset from './Reset';
 import Delay from './Delay';
@@ -110,9 +110,8 @@ class Typing extends Component {
         cursor.charPos = 0;
         toType.shift();
       }
-
       this.setState({ cursor, text, toType }, () => {
-        setTimeout(resolve, cursor.speed);
+        setTimeout(resolve, getRandomInRange(cursor.speed * 0.9, cursor.speed * 1.1));
       });
     });
   }
@@ -145,7 +144,7 @@ class Typing extends Component {
       }
 
       return this.setState({ cursor, text }, () => {
-        setTimeout(resolve, cursor.speed);
+        setTimeout(resolve, getRandomInRange(cursor.speed * 0.9, cursor.speed * 1.1));
       });
     });
   }
