@@ -1,6 +1,6 @@
 {
   "name": "react-typing-animation",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "./dist/index.js",
   "scripts": {
     "build": "mkdir -p ./dist && babel ./src --out-dir ./dist",
