@@ -123,10 +123,15 @@ class Typing extends Component {
     return new Promise((resolve) => {
       while (cursor.lineNum > text.length - 1 || cursor.charPos < 0) {
         cursor.lineNum -= 1;
+
+        if (cursor.lineNum < 0) {
+          break;
+        }
+
         cursor.charPos = text[cursor.lineNum].length ? text[cursor.lineNum].length - 1 : 0;
       }
 
-      if (cursor.step === 'char') {
+      if (cursor.step === 'char' && cursor.lineNum >= 0) {
         text[cursor.lineNum] = text[cursor.lineNum].substr(0, text[cursor.lineNum].length - 1);
       } else if (cursor.numToErase > 0) {
         text[cursor.lineNum] = '';
