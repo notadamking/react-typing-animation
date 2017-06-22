@@ -36,7 +36,7 @@ var extractText = exports.extractText = function extractText() {
     if (isTypingComponent(node)) {
       return node;
     } else if (_react2.default.isValidElement(node)) {
-      if (node.type === 'br') {
+      if (!node.props.children || !node.props.children.length) {
         return '\n';
       }
       return _react.Children.map(node.props.children, function (child) {
@@ -63,7 +63,7 @@ var replaceTreeText = exports.replaceTreeText = function replaceTreeText(tree, t
     if (isTypingComponent(node)) {
       return undefined;
     } else if (_react2.default.isValidElement(node)) {
-      if (node.type === 'br') {
+      if (!node.props.children || !node.props.children.length) {
         if (text.length === 1) {
           return [text.shift() === '' ? undefined : node, cursor];
         }
