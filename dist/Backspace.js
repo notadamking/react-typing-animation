@@ -47,4 +47,18 @@ Backspace.defaultProps = {
   speed: -1
 };
 
-exports.default = Backspace;
+var _default = Backspace;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(Backspace, 'Backspace', 'src/Backspace.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'src/Backspace.js');
+}();
+
+;

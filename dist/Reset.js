@@ -48,4 +48,18 @@ Reset.defaultProps = {
   speed: -1
 };
 
-exports.default = Reset;
+var _default = Reset;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(Reset, 'Reset', 'src/Reset.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'src/Reset.js');
+}();
+
+;

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.replaceTreeText = exports.extractText = undefined;
+exports.replaceTreeText = exports.extractText = exports.getRandomInRange = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -29,6 +29,10 @@ var isTypingComponent = function isTypingComponent(struct) {
   return ['Backspace', 'Delay', 'Speed', 'Reset'].some(function (sub) {
     return struct.type && struct.type.getName && struct.type.getName() === sub;
   });
+};
+
+var getRandomInRange = exports.getRandomInRange = function getRandomInRange(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 var extractText = exports.extractText = function extractText() {
@@ -83,3 +87,24 @@ var replaceTreeText = exports.replaceTreeText = function replaceTreeText(tree, t
   };
   return traverse(tree, txt.slice());
 };
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(flatten, 'flatten', 'src/utils.js');
+
+  __REACT_HOT_LOADER__.register(removeUndefined, 'removeUndefined', 'src/utils.js');
+
+  __REACT_HOT_LOADER__.register(isTypingComponent, 'isTypingComponent', 'src/utils.js');
+
+  __REACT_HOT_LOADER__.register(getRandomInRange, 'getRandomInRange', 'src/utils.js');
+
+  __REACT_HOT_LOADER__.register(extractText, 'extractText', 'src/utils.js');
+
+  __REACT_HOT_LOADER__.register(replaceTreeText, 'replaceTreeText', 'src/utils.js');
+}();
+
+;

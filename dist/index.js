@@ -31,9 +31,21 @@ var _Speed3 = _interopRequireDefault(_Speed2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = _Typing2.default;
+var _default = _Typing2.default;
+exports.default = _default;
 exports.Backspace = _Backspace3.default;
 exports.Cursor = _Cursor3.default;
 exports.Delay = _Delay3.default;
 exports.Reset = _Reset3.default;
 exports.Speed = _Speed3.default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'src/index.js');
+}();
+
+;

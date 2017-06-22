@@ -39,4 +39,22 @@ var Cursor = function Cursor(_ref) {
 Cursor.propTypes = { className: _propTypes2.default.string };
 Cursor.defaultProps = { className: '' };
 
-exports.default = Cursor;
+var _default = Cursor;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(blink, 'blink', 'src/Cursor.js');
+
+  __REACT_HOT_LOADER__.register(CursorSpan, 'CursorSpan', 'src/Cursor.js');
+
+  __REACT_HOT_LOADER__.register(Cursor, 'Cursor', 'src/Cursor.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'src/Cursor.js');
+}();
+
+;
