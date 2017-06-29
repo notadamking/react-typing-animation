@@ -53,31 +53,7 @@ var Typing = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Typing.__proto__ || Object.getPrototypeOf(Typing)).call(this, props));
 
     _this.beginTyping = function () {
-      var recurse = function recurse() {
-        var _this$state = _this.state,
-            toType = _this$state.toType,
-            cursor = _this$state.cursor,
-            loop = _this$state.loop;
-
-        if (toType.length > 0 || cursor.numToErase > 0) {
-          _this.type().then(recurse);
-        } else {
-          Promise.resolve(_this.props.onFinishedTyping()).then(function () {
-            if (loop) {
-              cursor.lineNum = 0;
-              cursor.charPos = 0;
-              cursor.numToErase = 0;
-              cursor.preEraseLineNum = 0;
-              cursor.delay = _this.props.startDelay;
-              cursor.speed = _this.props.speed;
-              cursor.step = 'char';
-
-              _this.setState({ cursor: cursor, text: [], toType: (0, _utils.extractText)(_this.props.children) }, recurse);
-            }
-          });
-        }
-      };
-      recurse();
+      return _this.__beginTyping__REACT_HOT_LOADER__.apply(_this, arguments);
     };
 
     _this.state = {
@@ -111,9 +87,40 @@ var Typing = function (_Component) {
       });
     }
   }, {
+    key: '__beginTyping__REACT_HOT_LOADER__',
+    value: function __beginTyping__REACT_HOT_LOADER__() {
+      var _this3 = this;
+
+      var recurse = function recurse() {
+        var _state = _this3.state,
+            toType = _state.toType,
+            cursor = _state.cursor,
+            loop = _state.loop;
+
+        if (toType.length > 0 || cursor.numToErase > 0) {
+          _this3.type().then(recurse);
+        } else {
+          Promise.resolve(_this3.props.onFinishedTyping()).then(function () {
+            if (loop) {
+              cursor.lineNum = 0;
+              cursor.charPos = 0;
+              cursor.numToErase = 0;
+              cursor.preEraseLineNum = 0;
+              cursor.delay = _this3.props.startDelay;
+              cursor.speed = _this3.props.speed;
+              cursor.step = 'char';
+
+              _this3.setState({ cursor: cursor, text: [], toType: (0, _utils.extractText)(_this3.props.children) }, recurse);
+            }
+          });
+        }
+      };
+      recurse();
+    }
+  }, {
     key: 'type',
     value: function type() {
-      var _this3 = this;
+      var _this4 = this;
 
       var toType = this.state.toType;
       var cursor = this.state.cursor;
@@ -128,16 +135,16 @@ var Typing = function (_Component) {
       cursor.delay = 0;
 
       return new Promise(function (resolve) {
-        _this3.setState({ cursor: cursor, toType: toType }, function () {
+        _this4.setState({ cursor: cursor, toType: toType }, function () {
           setTimeout(function () {
             if (cursor.step === 'char' && cursor.numToErase < 1) {
               if (toType.length > 0) {
-                _this3.typeCharacter().then(resolve);
+                _this4.typeCharacter().then(resolve);
               } else {
                 resolve();
               }
             } else {
-              _this3.erase().then(resolve);
+              _this4.erase().then(resolve);
             }
           }, delay);
         });
@@ -146,12 +153,12 @@ var Typing = function (_Component) {
   }, {
     key: 'typeCharacter',
     value: function typeCharacter() {
-      var _this4 = this;
+      var _this5 = this;
 
-      var _state = this.state,
-          cursor = _state.cursor,
-          text = _state.text,
-          toType = _state.toType;
+      var _state2 = this.state,
+          cursor = _state2.cursor,
+          text = _state2.text,
+          toType = _state2.toType;
 
 
       return new Promise(function (resolve) {
@@ -167,16 +174,15 @@ var Typing = function (_Component) {
           cursor.charPos = 0;
           toType.shift();
         }
-
-        _this4.setState({ cursor: cursor, text: text, toType: toType }, function () {
-          setTimeout(resolve, cursor.speed);
+        _this5.setState({ cursor: cursor, text: text, toType: toType }, function () {
+          setTimeout(resolve, (0, _utils.getRandomInRange)(cursor.speed * 0.9, cursor.speed * 1.1));
         });
       });
     }
   }, {
     key: 'erase',
     value: function erase() {
-      var _this5 = this;
+      var _this6 = this;
 
       var cursor = this.state.cursor;
       var text = this.state.text;
@@ -185,10 +191,15 @@ var Typing = function (_Component) {
       return new Promise(function (resolve) {
         while (cursor.lineNum > text.length - 1 || cursor.charPos < 0) {
           cursor.lineNum -= 1;
+
+          if (cursor.lineNum < 0) {
+            break;
+          }
+
           cursor.charPos = text[cursor.lineNum].length ? text[cursor.lineNum].length - 1 : 0;
         }
 
-        if (cursor.step === 'char') {
+        if (cursor.step === 'char' && cursor.lineNum >= 0) {
           text[cursor.lineNum] = text[cursor.lineNum].substr(0, text[cursor.lineNum].length - 1);
         } else if (cursor.numToErase > 0) {
           text[cursor.lineNum] = '';
@@ -207,8 +218,8 @@ var Typing = function (_Component) {
           cursor.step = 'char';
         }
 
-        return _this5.setState({ cursor: cursor, text: text }, function () {
-          setTimeout(resolve, cursor.speed);
+        return _this6.setState({ cursor: cursor, text: text }, function () {
+          setTimeout(resolve, (0, _utils.getRandomInRange)(cursor.speed * 0.9, cursor.speed * 1.1));
         });
       });
     }
@@ -259,4 +270,18 @@ Typing.Delay = _Delay2.default;
 Typing.Speed = _Speed2.default;
 Typing.Cursor = _Cursor2.default;
 
-exports.default = Typing;
+var _default = Typing;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(Typing, 'Typing', 'src/Typing.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'src/Typing.js');
+}();
+
+;

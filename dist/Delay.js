@@ -32,4 +32,18 @@ Delay.getName = function () {
 
 Delay.propTypes = { ms: _propTypes2.default.number.isRequired };
 
-exports.default = Delay;
+var _default = Delay;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(Delay, 'Delay', 'src/Delay.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'src/Delay.js');
+}();
+
+;

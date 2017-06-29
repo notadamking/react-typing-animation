@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.replaceTreeText = exports.extractText = undefined;
+exports.replaceTreeText = exports.extractText = exports.getRandomInRange = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -29,6 +29,10 @@ var isTypingComponent = function isTypingComponent(struct) {
   return ['Backspace', 'Delay', 'Speed', 'Reset'].some(function (sub) {
     return struct.type && struct.type.getName && struct.type.getName() === sub;
   });
+};
+
+var getRandomInRange = exports.getRandomInRange = function getRandomInRange(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 var extractText = exports.extractText = function extractText() {
