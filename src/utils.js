@@ -17,7 +17,7 @@ export const extractText = (...args) => {
     if (isTypingComponent(node)) {
       return node;
     } else if (React.isValidElement(node)) {
-      if (node.type === 'br') {
+      if (!node.props.children || !node.props.children.length) {
         return '\n';
       }
       return Children.map(node.props.children, child => traverse(child));
@@ -40,7 +40,7 @@ export const replaceTreeText = (tree, txt, cursor) => {
     if (isTypingComponent(node)) {
       return undefined;
     } else if (React.isValidElement(node)) {
-      if (node.type === 'br') {
+      if (!node.props.children || !node.props.children.length) {
         if (text.length === 1) {
           return [text.shift() === '' ? undefined : node, cursor];
         }

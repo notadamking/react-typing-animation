@@ -40,7 +40,7 @@ var extractText = exports.extractText = function extractText() {
     if (isTypingComponent(node)) {
       return node;
     } else if (_react2.default.isValidElement(node)) {
-      if (node.type === 'br') {
+      if (!node.props.children || !node.props.children.length) {
         return '\n';
       }
       return _react.Children.map(node.props.children, function (child) {
@@ -67,7 +67,7 @@ var replaceTreeText = exports.replaceTreeText = function replaceTreeText(tree, t
     if (isTypingComponent(node)) {
       return undefined;
     } else if (_react2.default.isValidElement(node)) {
-      if (node.type === 'br') {
+      if (!node.props.children || !node.props.children.length) {
         if (text.length === 1) {
           return [text.shift() === '' ? undefined : node, cursor];
         }
@@ -87,24 +87,3 @@ var replaceTreeText = exports.replaceTreeText = function replaceTreeText(tree, t
   };
   return traverse(tree, txt.slice());
 };
-;
-
-var _temp = function () {
-  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
-    return;
-  }
-
-  __REACT_HOT_LOADER__.register(flatten, 'flatten', 'src/utils.js');
-
-  __REACT_HOT_LOADER__.register(removeUndefined, 'removeUndefined', 'src/utils.js');
-
-  __REACT_HOT_LOADER__.register(isTypingComponent, 'isTypingComponent', 'src/utils.js');
-
-  __REACT_HOT_LOADER__.register(getRandomInRange, 'getRandomInRange', 'src/utils.js');
-
-  __REACT_HOT_LOADER__.register(extractText, 'extractText', 'src/utils.js');
-
-  __REACT_HOT_LOADER__.register(replaceTreeText, 'replaceTreeText', 'src/utils.js');
-}();
-
-;
