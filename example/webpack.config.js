@@ -15,7 +15,7 @@ module.exports = {
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, './build'),
-    publicPath: '/react-typing-animation/',
+    publicPath: isProduction ? '/react-typing-animation/' : '/',
   },
   module: {
     rules: [

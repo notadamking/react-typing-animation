@@ -22,7 +22,9 @@
       "react",
       "stage-0"
     ],
-    "plugins": ["react-hot-loader/babel"]
+    "plugins": [
+      "react-hot-loader/babel"
+    ]
   },
   "devDependencies": {
     "assets-webpack-plugin": "^3.5.1",

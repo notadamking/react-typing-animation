@@ -44,13 +44,14 @@ class App extends Component {
             <Delay ms={500} />
             <ul>
               <li>
-                <span className={styles.checkmark}>✅</span> Type text from any
-                valid JSX.
+                <span className={styles.checkmark}> &#10004;</span> Type text
+                from any valid JSX.
               </li>
               <Delay ms={1000} />
               <li>
                 <span className={styles.styledSpan}>
-                  <span className={styles.checkmark}>✅</span> All styles and{' '}
+                  <span className={styles.checkmark}> &#10004;</span> All styles
+                  and{' '}
                   <table className={styles.table}>
                     <tbody>
                       <tr>
@@ -102,20 +103,21 @@ class App extends Component {
               </li>
               <Delay ms={1000} />
               <li>
-                <span className={styles.checkmark}>✅</span> Change the{' '}
+                <span className={styles.checkmark}> &#10004;</span> Change the{' '}
                 <Speed ms={250} /> speed <Speed ms={20} /> of typing anywhere{' '}
                 <Speed ms={40} /> in the tree.
               </li>
               <Delay ms={1000} />
               <li>
-                <span className={styles.checkmark}>✅</span> Backspace with ease.
+                <span className={styles.checkmark}> &#10004;</span> Backspace
+                with ease.
                 <Backspace count={10} delay={750} />
                 {"couldn't be simpler."}
               </li>
               <Delay ms={1000} />
               <li>
-                <span className={styles.checkmark}>✅</span> Neither could
-                deleting a line of text.
+                <span className={styles.checkmark}> &#10004;</span> Neither
+                could deleting a line of text.
                 <Reset count={1} delay={750} />
                 <span>Or the entire tree.</span>
                 <Reset delay={2000} />
