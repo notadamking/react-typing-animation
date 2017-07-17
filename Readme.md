@@ -1,5 +1,7 @@
 React-typing-animation
 ============
+![typing animation gif](https://github.com/adamjking3/react-typing-animation/blob/master/typing.gif)
+
 [![NPM](https://nodei.co/npm/react-typing-animation.png)](https://npmjs.org/package/react-typing-animation)
 
 > A fully-featured typing animation in React that supports any valid JSX.
@@ -28,8 +30,6 @@ There were other JS typing animations that existed when I created this, but they
 ## Demo
 
 View the [live demo](https://adamjking3.github.io/react-typing-animation-example/)
-
-![typing animation gif](https://github.com/adamjking3/react-typing-animation/blob/master/typing.gif)
 
 **or**
 
