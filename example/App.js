@@ -119,7 +119,7 @@ class App extends Component {
                 <span className={styles.checkmark}> &#10004;</span> Neither
                 could deleting a line of text.
                 <Reset count={1} delay={750} />
-                <span>Or the entire tree.</span>
+                <span> Or the entire tree.</span>
                 <Reset delay={2000} />
               </li>
             </ul>
