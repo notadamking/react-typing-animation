@@ -16,20 +16,23 @@ class App extends Component {
       showTitleCursor: true,
       showFeatures: false,
     };
-
-    this.showFeatures = ::this.showFeatures;
   }
 
-  showFeatures() {
+  showFeatures = () => {
     this.setState({
       showTitleCursor: false,
       showFeatures: true,
     });
   }
 
+  unmount = () => {
+    this.setState({ showFeatures: false });
+  }
+
   render() {
     return (
       <div className={styles.page}>
+        <button onClick={this.unmount}>Unmount</button>
         <Typing
           className={styles.title}
           cursor={this.state.showTitleCursor ? <Cursor /> : <noscript />}

@@ -1,6 +1,6 @@
 {
   "name": "react-typing-animation",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "main": "./dist/index.js",
   "scripts": {
     "build": "mkdir -p ./dist && babel ./src --out-dir ./dist",
@@ -22,9 +22,7 @@
       "react",
       "stage-0"
     ],
-    "plugins": [
-      "react-hot-loader/babel"
-    ]
+    "plugins": ["react-hot-loader/babel"]
   },
   "devDependencies": {
     "assets-webpack-plugin": "^3.5.1",

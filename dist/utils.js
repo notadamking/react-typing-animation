@@ -87,3 +87,24 @@ var replaceTreeText = exports.replaceTreeText = function replaceTreeText(tree, t
   };
   return traverse(tree, txt.slice());
 };
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(flatten, 'flatten', 'src/utils.js');
+
+  __REACT_HOT_LOADER__.register(removeUndefined, 'removeUndefined', 'src/utils.js');
+
+  __REACT_HOT_LOADER__.register(isTypingComponent, 'isTypingComponent', 'src/utils.js');
+
+  __REACT_HOT_LOADER__.register(getRandomInRange, 'getRandomInRange', 'src/utils.js');
+
+  __REACT_HOT_LOADER__.register(extractText, 'extractText', 'src/utils.js');
+
+  __REACT_HOT_LOADER__.register(replaceTreeText, 'replaceTreeText', 'src/utils.js');
+}();
+
+;

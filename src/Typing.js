@@ -30,15 +30,21 @@ class Typing extends Component {
 
   componentDidMount() {
     requestAnimationFrame(() => {
-      this.setState(
-        {
-          toType: extractText(this.props.children),
-        },
-        () => {
-          this.beginTyping();
-        },
-      );
+      if (!this.unmounted) {
+        this.setState(
+          {
+            toType: extractText(this.props.children),
+          },
+          () => {
+            this.beginTyping();
+          },
+        );
+      }
     });
+  }
+
+  componentWillUnmount() {
+    this.unmounted = true;
   }
 
   beginTyping = () => {
@@ -57,7 +63,12 @@ class Typing extends Component {
             cursor.speed = this.props.speed;
             cursor.step = 'char';
 
-            this.setState({ cursor, text: [], toType: extractText(this.props.children) }, recurse);
+            if (!this.unmounted) {
+              this.setState(
+                { cursor, text: [], toType: extractText(this.props.children) },
+                recurse,
+              );
+            }
           }
         });
       }
@@ -69,7 +80,12 @@ class Typing extends Component {
     const { toType } = this.state;
     let { cursor } = this.state;
 
-    while (toType[0] && toType[0].type && toType[0].type.updateCursor && cursor.numToErase < 1) {
+    while (
+      toType[0] &&
+      toType[0].type &&
+      toType[0].type.updateCursor &&
+      cursor.numToErase < 1
+    ) {
       cursor = toType[0].type.updateCursor(cursor, toType[0].props);
       toType.shift();
     }
@@ -77,27 +93,29 @@ class Typing extends Component {
     const delay = cursor.delay;
     cursor.delay = 0;
 
-    return new Promise((resolve) => {
-      this.setState({ cursor, toType }, () => {
-        setTimeout(() => {
-          if (cursor.step === 'char' && cursor.numToErase < 1) {
-            if (toType.length > 0) {
-              this.typeCharacter().then(resolve);
+    return new Promise(resolve => {
+      if (!this.unmounted) {
+        this.setState({ cursor, toType }, () => {
+          setTimeout(() => {
+            if (cursor.step === 'char' && cursor.numToErase < 1) {
+              if (toType.length > 0) {
+                this.typeCharacter().then(resolve);
+              } else {
+                resolve();
+              }
             } else {
-              resolve();
+              this.erase().then(resolve);
             }
-          } else {
-            this.erase().then(resolve);
-          }
-        }, delay);
-      });
+          }, delay);
+        });
+      }
     });
   }
 
   typeCharacter() {
     const { cursor, text, toType } = this.state;
 
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       if (text.length - 1 < cursor.lineNum) {
         text[cursor.lineNum] = '';
       }
@@ -110,9 +128,15 @@ class Typing extends Component {
         cursor.charPos = 0;
         toType.shift();
       }
-      this.setState({ cursor, text, toType }, () => {
-        setTimeout(resolve, getRandomInRange(cursor.speed * 0.9, cursor.speed * 1.1));
-      });
+
+      if (!this.unmounted) {
+        this.setState({ cursor, text, toType }, () => {
+          setTimeout(
+            resolve,
+            getRandomInRange(cursor.speed * 0.9, cursor.speed * 1.1),
+          );
+        });
+      }
     });
   }
 
@@ -120,7 +144,7 @@ class Typing extends Component {
     const { cursor } = this.state;
     let { text } = this.state;
 
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       while (cursor.lineNum > text.length - 1 || cursor.charPos < 0) {
         cursor.lineNum -= 1;
 
@@ -128,11 +152,16 @@ class Typing extends Component {
           break;
         }
 
-        cursor.charPos = text[cursor.lineNum].length ? text[cursor.lineNum].length - 1 : 0;
+        cursor.charPos = text[cursor.lineNum].length
+          ? text[cursor.lineNum].length - 1
+          : 0;
       }
 
       if (cursor.step === 'char' && cursor.lineNum >= 0) {
-        text[cursor.lineNum] = text[cursor.lineNum].substr(0, text[cursor.lineNum].length - 1);
+        text[cursor.lineNum] = text[cursor.lineNum].substr(
+          0,
+          text[cursor.lineNum].length - 1,
+        );
       } else if (cursor.numToErase > 0) {
         text[cursor.lineNum] = '';
       } else {
@@ -148,9 +177,15 @@ class Typing extends Component {
         cursor.step = 'char';
       }
 
-      return this.setState({ cursor, text }, () => {
-        setTimeout(resolve, getRandomInRange(cursor.speed * 0.9, cursor.speed * 1.1));
-      });
+      if (!this.unmounted) {
+        return this.setState({ cursor, text }, () => {
+          setTimeout(
+            resolve,
+            getRandomInRange(cursor.speed * 0.9, cursor.speed * 1.1),
+          );
+        });
+      }
+      return resolve();
     });
   }
 

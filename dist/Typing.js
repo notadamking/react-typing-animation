@@ -79,12 +79,19 @@ var Typing = function (_Component) {
       var _this2 = this;
 
       requestAnimationFrame(function () {
-        _this2.setState({
-          toType: (0, _utils.extractText)(_this2.props.children)
-        }, function () {
-          _this2.beginTyping();
-        });
+        if (!_this2.unmounted) {
+          _this2.setState({
+            toType: (0, _utils.extractText)(_this2.props.children)
+          }, function () {
+            _this2.beginTyping();
+          });
+        }
       });
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this.unmounted = true;
     }
   }, {
     key: '__beginTyping__REACT_HOT_LOADER__',
@@ -110,7 +117,9 @@ var Typing = function (_Component) {
               cursor.speed = _this3.props.speed;
               cursor.step = 'char';
 
-              _this3.setState({ cursor: cursor, text: [], toType: (0, _utils.extractText)(_this3.props.children) }, recurse);
+              if (!_this3.unmounted) {
+                _this3.setState({ cursor: cursor, text: [], toType: (0, _utils.extractText)(_this3.props.children) }, recurse);
+              }
             }
           });
         }
@@ -135,19 +144,21 @@ var Typing = function (_Component) {
       cursor.delay = 0;
 
       return new Promise(function (resolve) {
-        _this4.setState({ cursor: cursor, toType: toType }, function () {
-          setTimeout(function () {
-            if (cursor.step === 'char' && cursor.numToErase < 1) {
-              if (toType.length > 0) {
-                _this4.typeCharacter().then(resolve);
+        if (!_this4.unmounted) {
+          _this4.setState({ cursor: cursor, toType: toType }, function () {
+            setTimeout(function () {
+              if (cursor.step === 'char' && cursor.numToErase < 1) {
+                if (toType.length > 0) {
+                  _this4.typeCharacter().then(resolve);
+                } else {
+                  resolve();
+                }
               } else {
-                resolve();
+                _this4.erase().then(resolve);
               }
-            } else {
-              _this4.erase().then(resolve);
-            }
-          }, delay);
-        });
+            }, delay);
+          });
+        }
       });
     }
   }, {
@@ -174,9 +185,12 @@ var Typing = function (_Component) {
           cursor.charPos = 0;
           toType.shift();
         }
-        _this5.setState({ cursor: cursor, text: text, toType: toType }, function () {
-          setTimeout(resolve, (0, _utils.getRandomInRange)(cursor.speed * 0.9, cursor.speed * 1.1));
-        });
+
+        if (!_this5.unmounted) {
+          _this5.setState({ cursor: cursor, text: text, toType: toType }, function () {
+            setTimeout(resolve, (0, _utils.getRandomInRange)(cursor.speed * 0.9, cursor.speed * 1.1));
+          });
+        }
       });
     }
   }, {
@@ -218,9 +232,12 @@ var Typing = function (_Component) {
           cursor.step = 'char';
         }
 
-        return _this6.setState({ cursor: cursor, text: text }, function () {
-          setTimeout(resolve, (0, _utils.getRandomInRange)(cursor.speed * 0.9, cursor.speed * 1.1));
-        });
+        if (!_this6.unmounted) {
+          return _this6.setState({ cursor: cursor, text: text }, function () {
+            setTimeout(resolve, (0, _utils.getRandomInRange)(cursor.speed * 0.9, cursor.speed * 1.1));
+          });
+        }
+        return resolve();
       });
     }
   }, {
