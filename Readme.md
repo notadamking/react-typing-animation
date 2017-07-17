@@ -1,6 +1,6 @@
 React-typing-animation
 ============
-![typing animation gif](https://github.com/adamjking3/react-typing-animation/blob/master/typing.gif)
+<p align="center"><img src ="https://github.com/adamjking3/react-typing-animation/blob/master/typing.gif" /></p>
 
 [![NPM](https://nodei.co/npm/react-typing-animation.png)](https://npmjs.org/package/react-typing-animation)
 
