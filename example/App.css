@@ -1,6 +1,5 @@
 .page {
   font-family: Rubik, sans-serif;
-  /*background-color: #087E8B;*/
   background: url('./public/img/handsTyping.svg');
   background-size: cover;
   background-position: center;
@@ -12,7 +11,7 @@
   justify-content: flex-start;
 
   & > * {
-    color: #F9F9F9;
+    color: #f9f9f9;
   }
 }
 
@@ -29,7 +28,7 @@
     position: relative;
 
     & > a {
-      color: #F9F9F9;
+      color: #f9f9f9;
       text-decoration: none;
       text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
       font-size: 3rem;
@@ -49,7 +48,6 @@
   }
 
   & > span {
-
   }
 }
 
@@ -72,7 +70,7 @@
 
 .styledSpan {
   color: black;
-  text-shadow: 0 0 3px #FF0000
+  text-shadow: 0 0 3px #ff0000;
 }
 
 .table {

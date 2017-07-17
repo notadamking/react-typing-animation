@@ -13,6 +13,8 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var voidHTMLElements = ['area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
+
 var flatten = function flatten(arr) {
   return arr.reduce(function (acc, item) {
     return acc.concat(Array.isArray(item) ? flatten(item) : item);
@@ -40,7 +42,7 @@ var extractText = exports.extractText = function extractText() {
     if (isTypingComponent(node)) {
       return node;
     } else if (_react2.default.isValidElement(node)) {
-      if (!node.props.children || !node.props.children.length) {
+      if (voidHTMLElements.indexOf(node.type) !== -1) {
         return '\n';
       }
       return _react.Children.map(node.props.children, function (child) {
@@ -67,7 +69,7 @@ var replaceTreeText = exports.replaceTreeText = function replaceTreeText(tree, t
     if (isTypingComponent(node)) {
       return undefined;
     } else if (_react2.default.isValidElement(node)) {
-      if (!node.props.children || !node.props.children.length) {
+      if (voidHTMLElements.indexOf(node.type) !== -1) {
         if (text.length === 1) {
           return [text.shift() === '' ? undefined : node, cursor];
         }
@@ -93,6 +95,8 @@ var _temp = function () {
   if (typeof __REACT_HOT_LOADER__ === 'undefined') {
     return;
   }
+
+  __REACT_HOT_LOADER__.register(voidHTMLElements, 'voidHTMLElements', 'src/utils.js');
 
   __REACT_HOT_LOADER__.register(flatten, 'flatten', 'src/utils.js');
 

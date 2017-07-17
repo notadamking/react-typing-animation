@@ -1,5 +1,4 @@
 const path = require('path');
-// const AssetsPlugin = require('assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -37,51 +36,57 @@ module.exports = {
         exclude: /node_modules/,
         use: isProduction
           ? ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-                { loader: 'css-loader?modules&importLoaders=1&localIdentName=[hash:base64:4]' },
+              fallback: 'style-loader',
+              use: [
+                {
+                  loader:
+                    'css-loader?modules&importLoaders=1&localIdentName=[hash:base64:4]',
+                },
                 { loader: 'postcss-loader' },
-            ],
-          })
+              ],
+            })
           : [
               { loader: 'style-loader' },
-            {
-              loader: 'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-            },
+              {
+                loader:
+                  'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+              },
               { loader: 'postcss-loader' },
-          ],
+            ],
       },
-      { test: /\.(png|jpg|ico|woff|woff2|ttf|eot|svg)$/, loader: 'file-loader' },
+      {
+        test: /\.(png|jpg|ico|woff|woff2|ttf|eot|svg)$/,
+        loader: 'file-loader',
+      },
     ],
   },
   plugins: [
-    // new AssetsPlugin({
-    //   path: path.resolve(__dirname, './build'),
-    // }),
     new CopyWebpackPlugin([{ from: './public', to: './' }]),
     new HtmlWebpackPlugin({
       template: './template.html',
     }),
     ...(isProduction
       ? [
-        new ExtractTextPlugin({
-          filename: 'styles/main.css',
-          allChunks: true,
-          publicPath: 'styles/',
-        }),
-          // new webpack.optimize.CommonsChunkPlugin({
-          //   name: 'vendor',
-          // }),
-        new webpack.optimize.UglifyJsPlugin({
-          output: {
-            comments: false,
-          },
-        }),
-      ]
+          new webpack.DefinePlugin({
+            'process.env': {
+              NODE_ENV: JSON.stringify('production'),
+            },
+          }),
+          new ExtractTextPlugin({
+            filename: 'styles/main.css',
+            allChunks: true,
+            publicPath: 'styles/',
+          }),
+          new webpack.optimize.UglifyJsPlugin({
+            output: {
+              comments: false,
+            },
+          }),
+        ]
       : [
-        new webpack.IgnorePlugin(/webpack-assets.json/),
-        new webpack.HotModuleReplacementPlugin(),
-      ]),
+          new webpack.IgnorePlugin(/webpack-assets.json/),
+          new webpack.HotModuleReplacementPlugin(),
+        ]),
   ],
   stats: {
     children: false,

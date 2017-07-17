@@ -1,7 +1,29 @@
 import React, { Children } from 'react';
 
+const voidHTMLElements = [
+  'area',
+  'base',
+  'br',
+  'col',
+  'command',
+  'embed',
+  'hr',
+  'img',
+  'input',
+  'keygen',
+  'link',
+  'meta',
+  'param',
+  'source',
+  'track',
+  'wbr',
+];
+
 const flatten = arr =>
-  arr.reduce((acc, item) => acc.concat(Array.isArray(item) ? flatten(item) : item), []);
+  arr.reduce(
+    (acc, item) => acc.concat(Array.isArray(item) ? flatten(item) : item),
+    [],
+  );
 
 const removeUndefined = arr => arr.filter(node => node !== undefined);
 
@@ -10,14 +32,15 @@ const isTypingComponent = struct =>
     sub => struct.type && struct.type.getName && struct.type.getName() === sub,
   );
 
-export const getRandomInRange = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+export const getRandomInRange = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
 
 export const extractText = (...args) => {
-  const traverse = (node) => {
+  const traverse = node => {
     if (isTypingComponent(node)) {
       return node;
     } else if (React.isValidElement(node)) {
-      if (!node.props.children || !node.props.children.length) {
+      if (voidHTMLElements.indexOf(node.type) !== -1) {
         return '\n';
       }
       return Children.map(node.props.children, child => traverse(child));
@@ -27,7 +50,9 @@ export const extractText = (...args) => {
     return String(node);
   };
   const text = traverse(...args);
-  return Array.isArray(text) ? removeUndefined(flatten(text)) : removeUndefined([text]);
+  return Array.isArray(text)
+    ? removeUndefined(flatten(text))
+    : removeUndefined([text]);
 };
 
 export const replaceTreeText = (tree, txt, cursor) => {
@@ -40,7 +65,7 @@ export const replaceTreeText = (tree, txt, cursor) => {
     if (isTypingComponent(node)) {
       return undefined;
     } else if (React.isValidElement(node)) {
-      if (!node.props.children || !node.props.children.length) {
+      if (voidHTMLElements.indexOf(node.type) !== -1) {
         if (text.length === 1) {
           return [text.shift() === '' ? undefined : node, cursor];
         }
@@ -52,7 +77,11 @@ export const replaceTreeText = (tree, txt, cursor) => {
           ...node.props,
           key: `Typing.${node.type}.${(i += 1)}`,
         },
-        removeUndefined(Children.toArray(node.props.children).map(child => traverse(child, text))),
+        removeUndefined(
+          Children.toArray(node.props.children).map(child =>
+            traverse(child, text),
+          ),
+        ),
       );
     } else if (Array.isArray(node)) {
       return removeUndefined(node.map(el => traverse(el, text)));

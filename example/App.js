@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import styles from './App.css';
 import Typing, { Backspace, Cursor, Delay, Reset, Speed } from '../src';
-
-const TestComponent = ({ children }) => <div>{children}</div>;
-
-TestComponent.propTypes = { children: PropTypes.node };
 
 class App extends Component {
   constructor() {
@@ -23,16 +18,11 @@ class App extends Component {
       showTitleCursor: false,
       showFeatures: true,
     });
-  }
-
-  unmount = () => {
-    this.setState({ showFeatures: false });
-  }
+  };
 
   render() {
     return (
       <div className={styles.page}>
-        <button onClick={this.unmount}>Unmount</button>
         <Typing
           className={styles.title}
           cursor={this.state.showTitleCursor ? <Cursor /> : <noscript />}
@@ -54,50 +44,67 @@ class App extends Component {
             <Delay ms={500} />
             <ul>
               <li>
-                <span className={styles.checkmark}>✅</span> Type text from any valid JSX.
+                <span className={styles.checkmark}>✅</span> Type text from any
+                valid JSX.
               </li>
               <Delay ms={1000} />
               <li>
                 <span className={styles.styledSpan}>
-                  <span className={styles.checkmark}>✅</span> All styles and
-                  {' '}
+                  <span className={styles.checkmark}>✅</span> All styles and{' '}
                   <table className={styles.table}>
                     <tbody>
-                      <tr><td>D</td></tr>
-                      <tr><td>O</td></tr>
-                      <tr><td>M</td></tr>
-                      <tr><td>&nbsp;</td></tr>
-                      <tr><td>S</td></tr>
-                      <tr><td>T</td></tr>
-                      <tr><td>R</td></tr>
-                      <tr><td>U</td></tr>
-                      <tr><td>C</td></tr>
-                      <tr><td>T</td></tr>
-                      <tr><td>U</td></tr>
-                      <tr><td>R</td></tr>
-                      <tr><td>E</td></tr>
-                      <tr><td>S</td></tr>
+                      <tr>
+                        <td>D</td>
+                      </tr>
+                      <tr>
+                        <td>O</td>
+                      </tr>
+                      <tr>
+                        <td>M</td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td>S</td>
+                      </tr>
+                      <tr>
+                        <td>T</td>
+                      </tr>
+                      <tr>
+                        <td>R</td>
+                      </tr>
+                      <tr>
+                        <td>U</td>
+                      </tr>
+                      <tr>
+                        <td>C</td>
+                      </tr>
+                      <tr>
+                        <td>T</td>
+                      </tr>
+                      <tr>
+                        <td>U</td>
+                      </tr>
+                      <tr>
+                        <td>R</td>
+                      </tr>
+                      <tr>
+                        <td>E</td>
+                      </tr>
+                      <tr>
+                        <td>S</td>
+                      </tr>
                     </tbody>
-                  </table>
-                  {' '}
+                  </table>{' '}
                   will be preserved.
                 </span>
               </li>
               <Delay ms={1000} />
               <li>
-                <span className={styles.checkmark}>✅</span> Change the
-                {' '}
-                <Speed ms={250} />
-                {' '}
-                speed
-                {' '}
-                <Speed ms={20} />
-                {' '}
-                of typing anywhere
-                {' '}
-                <Speed ms={40} />
-                {' '}
-                in the tree.
+                <span className={styles.checkmark}>✅</span> Change the{' '}
+                <Speed ms={250} /> speed <Speed ms={20} /> of typing anywhere{' '}
+                <Speed ms={40} /> in the tree.
               </li>
               <Delay ms={1000} />
               <li>
@@ -107,11 +114,10 @@ class App extends Component {
               </li>
               <Delay ms={1000} />
               <li>
-                <span className={styles.checkmark}>✅</span> Neither could deleting
-                {' '}
-                <span>
-                  a line of text.<Reset count={1} delay={750} />the entire tree.
-                </span>
+                <span className={styles.checkmark}>✅</span> Neither could
+                deleting a line of text.
+                <Reset count={1} delay={750} />
+                <span>Or the entire tree.</span>
                 <Reset delay={2000} />
               </li>
             </ul>

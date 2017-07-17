@@ -21,14 +21,16 @@ devServer.use(
     publicPath: webpackConfig.output.publicPath,
     headers: { 'Access-Control-Allow-Origin': '*' },
     stats: { colors: true },
-  }) // eslint-disable-line comma-dangle
+  }),
 );
 devServer.use(require('webpack-hot-middleware')(compiler));
 
-devServer.listen(port, (err) => {
+devServer.listen(port, err => {
   if (err) {
     console.error(err);
   } else {
-    console.info(`==> 🚧  Webpack development server listening on port ${port}`);
+    console.info(
+      `==> 🚧  Webpack development server listening on port ${port}`,
+    );
   }
 });
