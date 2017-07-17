@@ -29,6 +29,8 @@ There were other JS typing animations that existed when I created this, but they
 
 Try the [live demo](https://adamjking3.github.io/react-typing-animation-example/)
 
+![typing animation gif](https://github.com/adamjking3/react-typing-animation/blob/master/typing-animation.gif)
+
 **or**
 
 ```shell
