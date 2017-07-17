@@ -27,9 +27,7 @@ There were other JS typing animations that existed when I created this, but they
 
 ## Demo
 
-Try *link to live demo*
-
-*gif of animation*
+Try the [live demo](https://adamjking3.github.io/react-typing-animation/)
 
 **or**
 
