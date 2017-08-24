@@ -8,6 +8,8 @@ import Delay from './Delay';
 import Speed from './Speed';
 import Cursor from './Cursor';
 
+const requestAnimationFrame = require('raf');
+
 class Typing extends Component {
   constructor(props) {
     super(props);
