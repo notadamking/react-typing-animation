@@ -48,7 +48,7 @@
     "html-webpack-plugin": "^2.28.0",
     "postcss-cssnext": "^2.10.0",
     "postcss-loader": "^2.0.2",
-    "react-dom": "^15.5.4",
+    "react-dom": "^16.2.0",
     "react-hot-loader": "^3.0.0-beta.6",
     "rimraf": "^2.6.1",
     "style-loader": "^0.17.0",
@@ -58,7 +58,7 @@
   },
   "dependencies": {
     "prop-types": "^15.5.8",
-    "react": "^15.5.4",
+    "react": "^16.2.0",
     "styled-components": "^1.4.6"
   },
   "author": "Adam King https://github.com/adamjking3",
