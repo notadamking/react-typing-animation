@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import requestAnimationFrame from 'raf';
 
 import { getRandomInRange, extractText, replaceTreeText } from './utils';
 import Backspace from './Backspace';
