@@ -1,6 +1,7 @@
 React-typing-animation
 ============
-[![NPM](https://nodei.co/npm/react-typing-animation.png)](https://npmjs.org/package/react-typing-animation)
+[![npm version](https://img.shields.io/npm/v/react-typing-animation.svg)](https://npm.im/react-typing-animation) ![Licence](https://img.shields.io/npm/l/react-typing-animation.svg)
+
 
 > A fully-featured typing animation in React that supports any valid JSX.
 
