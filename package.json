@@ -1,7 +1,19 @@
 {
   "name": "react-typing-animation",
   "version": "1.2.1",
-  "main": "./dist/index.js",
+  "author": "Adam King https://github.com/adamjking3",
+  "homepage": "https://adamjking3.github.io/react-typing-animation-example/",
+  "repository": "github:adamjking3/react-typing-animation",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "typing",
+    "animation",
+    "animated",
+    "typewriter",
+    "typist",
+    "typer"
+  ],
   "scripts": {
     "build": "mkdir -p ./dist && babel ./src --out-dir ./dist",
     "build:example":
@@ -11,19 +23,6 @@
     "start": "NODE_ENV=development node ./example/webpack-dev-server.js",
     "prebuild": "npm run lint",
     "prepublish": "npm run build"
-  },
-  "babel": {
-    "presets": [
-      [
-        "latest",
-        {
-          "modules": false
-        }
-      ],
-      "react",
-      "stage-0"
-    ],
-    "plugins": ["react-hot-loader/babel"]
   },
   "devDependencies": {
     "assets-webpack-plugin": "^3.5.1",
@@ -35,11 +34,13 @@
     "babel-preset-stage-0": "^6.22.0",
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.10",
-    "eslint": "^3.18.0",
-    "eslint-config-airbnb": "^14.1.0",
-    "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.3",
+    "eslint": "^4.4.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-react-app": "^2.1.0",
+    "eslint-plugin-flowtype": "^2.35.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.6.1",
     "express": "^4.16.3",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
@@ -61,17 +62,32 @@
     "react": "^16.2.0",
     "styled-components": "^1.4.6"
   },
-  "author": "Adam King https://github.com/adamjking3",
-  "homepage": "https://github.com/adamjking3/react-typing-animation",
-  "repository": "github:adamjking3/react-typing-animation",
-  "license": "MIT",
-  "keywords": [
-    "react",
-    "typing",
-    "animation",
-    "animated",
-    "typewriter",
-    "typist",
-    "typer"
-  ]
+  "main": "./dist/index.js",
+  "babel": {
+    "presets": [
+      [
+        "latest",
+        {
+          "modules": false
+        }
+      ],
+      "react",
+      "stage-0"
+    ],
+    "plugins": ["react-hot-loader/babel"]
+  },
+  "eslintConfig": {
+    "extends": ["react-app", "prettier"],
+    "globals": {
+      "document": true,
+      "window": true,
+      "global": true,
+      "module": true,
+      "requestAnimationFrame": true,
+      "console": true,
+      "__dirname": true,
+      "require": true
+    }
+  },
+  "eslintIgnore": ["dist", "example/build"]
 }

@@ -21,7 +21,7 @@ devServer.use(
     publicPath: webpackConfig.output.publicPath,
     headers: { 'Access-Control-Allow-Origin': '*' },
     stats: { colors: true },
-  }),
+  })
 );
 devServer.use(require('webpack-hot-middleware')(compiler));
 
@@ -30,7 +30,7 @@ devServer.listen(port, err => {
     console.error(err);
   } else {
     console.info(
-      `==> 🚧  Webpack development server listening on port ${port}`,
+      `==> 🚧  Webpack development server listening on port ${port}`
     );
   }
 });

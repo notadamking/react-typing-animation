@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const Backspace = () => <noscript />;
 
@@ -13,17 +12,5 @@ Backspace.updateCursor = (cursor, { speed, count, delay }) => {
 };
 
 Backspace.getName = () => 'Backspace';
-
-Backspace.propTypes = {
-  count: PropTypes.number,
-  delay: PropTypes.number,
-  speed: PropTypes.number,
-};
-
-Backspace.defaultProps = {
-  count: 1,
-  delay: 0,
-  speed: -1,
-};
 
 export default Backspace;

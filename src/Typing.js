@@ -38,7 +38,7 @@ class Typing extends Component {
           },
           () => {
             this.beginTyping();
-          },
+          }
         );
       }
     });
@@ -67,7 +67,7 @@ class Typing extends Component {
             if (!this.unmounted) {
               this.setState(
                 { cursor, text: [], toType: extractText(this.props.children) },
-                recurse,
+                recurse
               );
             }
           }
@@ -134,7 +134,7 @@ class Typing extends Component {
         this.setState({ cursor, text, toType }, () => {
           setTimeout(
             resolve,
-            getRandomInRange(cursor.speed * 0.9, cursor.speed * 1.1),
+            getRandomInRange(cursor.speed * 0.9, cursor.speed * 1.1)
           );
         });
       }
@@ -161,7 +161,7 @@ class Typing extends Component {
       if (cursor.step === 'char' && cursor.lineNum >= 0) {
         text[cursor.lineNum] = text[cursor.lineNum].substr(
           0,
-          text[cursor.lineNum].length - 1,
+          text[cursor.lineNum].length - 1
         );
       } else if (cursor.numToErase > 0) {
         text[cursor.lineNum] = '';
@@ -182,7 +182,7 @@ class Typing extends Component {
         return this.setState({ cursor, text }, () => {
           setTimeout(
             resolve,
-            getRandomInRange(cursor.speed * 0.9, cursor.speed * 1.1),
+            getRandomInRange(cursor.speed * 0.9, cursor.speed * 1.1)
           );
         });
       }
@@ -193,11 +193,7 @@ class Typing extends Component {
   render() {
     const { children, className, cursor } = this.props;
     const filled = replaceTreeText(children, this.state.text, cursor);
-    return (
-      <div className={className}>
-        {filled}
-      </div>
-    );
+    return <div className={className}>{filled}</div>;
   }
 }
 

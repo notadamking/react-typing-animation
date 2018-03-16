@@ -39,7 +39,7 @@ class App extends Component {
           </h1>
           <Delay ms={1000} />
         </Typing>
-        {this.state.showFeatures &&
+        {this.state.showFeatures && (
           <Typing loop speed={50} className={styles.features}>
             <Delay ms={500} />
             <ul>
@@ -123,7 +123,8 @@ class App extends Component {
                 <Reset delay={2000} />
               </li>
             </ul>
-          </Typing>}
+          </Typing>
+        )}
       </div>
     );
   }

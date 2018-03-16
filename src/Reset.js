@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const Reset = () => <noscript />;
 
@@ -14,17 +13,5 @@ Reset.updateCursor = (cursor, { count, delay, speed }) => {
 };
 
 Reset.getName = () => 'Reset';
-
-Reset.propTypes = {
-  count: PropTypes.number,
-  delay: PropTypes.number,
-  speed: PropTypes.number,
-};
-
-Reset.defaultProps = {
-  count: 0,
-  delay: 0,
-  speed: -1,
-};
 
 export default Reset;

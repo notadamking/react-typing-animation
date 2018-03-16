@@ -1,8 +1,8 @@
 import Typing from './Typing';
 
 export default Typing;
-export Backspace from './Backspace';
-export Cursor from './Cursor';
-export Delay from './Delay';
-export Reset from './Reset';
-export Speed from './Speed';
+export { default as Backspace } from './Backspace';
+export { default as Cursor } from './Cursor';
+export { default as Delay } from './Delay';
+export { default as Reset } from './Reset';
+export { default as Speed } from './Speed';

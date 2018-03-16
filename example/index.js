@@ -4,12 +4,12 @@ import { AppContainer } from 'react-hot-loader'; // eslint-disable-line import/n
 
 import App from './App';
 
-const mount = (AppComponent) => {
+const mount = AppComponent => {
   ReactDOM.render(
     <AppContainer>
       <AppComponent />
     </AppContainer>,
-    document.getElementById('root'),
+    document.getElementById('root')
   );
 };
 

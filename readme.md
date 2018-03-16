@@ -1,7 +1,6 @@
-React-typing-animation
-============
-[![npm version](https://img.shields.io/npm/v/react-typing-animation.svg)](https://npm.im/react-typing-animation) ![Licence](https://img.shields.io/npm/l/react-typing-animation.svg)
+# React-typing-animation
 
+[![npm version](https://img.shields.io/npm/v/react-typing-animation.svg)](https://npm.im/react-typing-animation) ![Licence](https://img.shields.io/npm/l/react-typing-animation.svg)
 
 > A fully-featured typing animation in React that supports any valid JSX.
 
@@ -27,7 +26,6 @@ There were other JS typing animations that existed when I created this, but they
 
 ✅ No dependencies (CSS or JS)
 
-
 ## Demo
 
 View the [live demo](https://adamjking3.github.io/react-typing-animation-example/)
@@ -52,7 +50,7 @@ npm i --save react-typing-animation
 ## Usage
 
 ```jsx
-import Typing from 'react-typing-animation'
+import Typing from 'react-typing-animation';
 
 const AnimatedTypingComponent = () => (
   <Typing>
@@ -61,19 +59,17 @@ const AnimatedTypingComponent = () => (
 );
 ```
 
-
 ## Documentation
 
-|     Property     |    Type    |       Default       | Required | Description |
-|:----------------:|:----------:|:-------------------:|:--------:|:-----------:|
-|     children     | React node |                     |    yes   |             |
-|     className    |   string   |          ''         |    no    |             |
-|      cursor      | React node | [Cursor.js](https://github.com/adamjking3/react-typing-animation/blob/master/src/Cursor.js)         |    no    |             |
-|       speed      |   number   |          50         |    no    |             |
-|    startDelay    |   number   |          0          |    no    |             |
-|       loop       |   boolean  |        false        |    no    |             |
-| onFinishedTyping |  function  |       () => {}      |    no    |             |
-
+|     Property     |    Type    |                                           Default                                           | Required | Description |
+| :--------------: | :--------: | :-----------------------------------------------------------------------------------------: | :------: | :---------: |
+|     children     | React node |                                                                                             |   yes    |             |
+|    className     |   string   |                                             ''                                              |    no    |             |
+|      cursor      | React node | [Cursor.js](https://github.com/adamjking3/react-typing-animation/blob/master/src/Cursor.js) |    no    |             |
+|      speed       |   number   |                                             50                                              |    no    |             |
+|    startDelay    |   number   |                                              0                                              |    no    |             |
+|       loop       |  boolean   |                                            false                                            |    no    |             |
+| onFinishedTyping |  function  |                                          () => {}                                           |    no    |             |
 
 ### Backspace Component
 
@@ -87,10 +83,10 @@ import Typing from 'react-typing-animation';
 ```
 
 | Property |  Type  | Default | Required | Description |
-|:--------:|:------:|:-------:|:--------:|:-----------:|
-|   count  | number |    1    |   false  |             |
-|   delay  | number |    0    |   false  |             |
-|   speed  | number |    -1   |   false  |             |
+| :------: | :----: | :-----: | :------: | :---------: |
+|  count   | number |    1    |  false   |             |
+|  delay   | number |    0    |  false   |             |
+|  speed   | number |   -1    |  false   |             |
 
 ### Delay Component
 
@@ -107,8 +103,8 @@ import Typing from 'react-typing-animation';
 ```
 
 | Property |  Type  | Default | Required | Description |
-|:--------:|:------:|:-------:|:--------:|:-----------:|
-|    ms    | number |         |    yes   |             |
+| :------: | :----: | :-----: | :------: | :---------: |
+|    ms    | number |         |   yes    |             |
 
 ### Speed Component
 
@@ -123,8 +119,8 @@ import Typing from 'react-typing-animation';
 ```
 
 | Property |  Type  | Default | Required | Description |
-|:--------:|:------:|:-------:|:--------:|:-----------:|
-|    ms    | number |         |    yes   |             |
+| :------: | :----: | :-----: | :------: | :---------: |
+|    ms    | number |         |   yes    |             |
 
 ### Reset Component
 
@@ -139,10 +135,10 @@ import Typing from 'react-typing-animation';
 ```
 
 | Property |  Type  | Default | Required | Description |
-|:--------:|:------:|:-------:|:--------:|:-----------:|
-|   count  | number |    0    |   false  |             |
-|   delay  | number |    0    |   false  |             |
-|   speed  | number |    -1   |   false  |             |
+| :------: | :----: | :-----: | :------: | :---------: |
+|  count   | number |    0    |  false   |             |
+|  delay   | number |    0    |  false   |             |
+|  speed   | number |   -1    |  false   |             |
 
 ## Contributing
 
@@ -165,4 +161,5 @@ npm run build
 Pull requests are welcome!
 
 ## License
+
 [MIT](https://github.com/adamjking3/react-typing-animation/blob/master/LICENSE)

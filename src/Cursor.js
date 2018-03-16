@@ -19,7 +19,9 @@ const CursorSpan = styled.span`
   animation: ${blink} 1s step-end infinite;
 `;
 
-const Cursor = ({ className }) => <CursorSpan className={className}>|</CursorSpan>;
+const Cursor = ({ className }) => (
+  <CursorSpan className={className}>|</CursorSpan>
+);
 
 Cursor.propTypes = { className: PropTypes.string };
 Cursor.defaultProps = { className: '' };

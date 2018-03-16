@@ -22,14 +22,14 @@ const voidHTMLElements = [
 const flatten = arr =>
   arr.reduce(
     (acc, item) => acc.concat(Array.isArray(item) ? flatten(item) : item),
-    [],
+    []
   );
 
 const removeUndefined = arr => arr.filter(node => node !== undefined);
 
 const isTypingComponent = struct =>
   ['Backspace', 'Delay', 'Speed', 'Reset'].some(
-    sub => struct.type && struct.type.getName && struct.type.getName() === sub,
+    sub => struct.type && struct.type.getName && struct.type.getName() === sub
   );
 
 export const getRandomInRange = (min, max) =>
@@ -79,9 +79,9 @@ export const replaceTreeText = (tree, txt, cursor) => {
         },
         removeUndefined(
           Children.toArray(node.props.children).map(child =>
-            traverse(child, text),
-          ),
-        ),
+            traverse(child, text)
+          )
+        )
       );
     } else if (Array.isArray(node)) {
       return removeUndefined(node.map(el => traverse(el, text)));
