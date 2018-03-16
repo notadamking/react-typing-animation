@@ -14,6 +14,10 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _raf = require('raf');
+
+var _raf2 = _interopRequireDefault(_raf);
+
 var _utils = require('./utils');
 
 var _Backspace = require('./Backspace');
@@ -43,8 +47,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var requestAnimationFrame = require('raf');
 
 var Typing = function (_Component) {
   _inherits(Typing, _Component);
@@ -76,11 +78,16 @@ var Typing = function (_Component) {
   }
 
   _createClass(Typing, [{
+    key: '__beginTyping__REACT_HOT_LOADER__',
+    value: function __beginTyping__REACT_HOT_LOADER__() {
+      return this.__beginTyping__REACT_HOT_LOADER__.apply(this, arguments);
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       var _this2 = this;
 
-      requestAnimationFrame(function () {
+      (0, _raf2.default)(function () {
         if (!_this2.unmounted) {
           _this2.setState({
             toType: (0, _utils.extractText)(_this2.props.children)
