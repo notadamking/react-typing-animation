@@ -15,10 +15,8 @@
     "typer"
   ],
   "scripts": {
-    "build":
-      "mkdir -p ./dist && NODE_ENV=production babel ./src --out-dir ./dist",
-    "build:example":
-      "npm run clean && webpack --progress --config ./example/webpack.config.js",
+    "build": "mkdir -p ./dist && NODE_ENV=production babel ./src --out-dir ./dist",
+    "build:example": "npm run clean && webpack --progress --config ./example/webpack.config.js",
     "clean": "rimraf ./example/build/* && npm run lint",
     "lint": "eslint --ignore-path .gitignore .",
     "start": "NODE_ENV=development node ./example/webpack-dev-server.js",
@@ -70,10 +68,15 @@
   },
   "main": "./dist/index.js",
   "babel": {
-    "presets": ["react-app"]
+    "presets": [
+      "react-app"
+    ]
   },
   "eslintConfig": {
-    "extends": ["react-app", "prettier"]
+    "extends": [
+      "react-app",
+      "prettier"
+    ]
   },
   "prettier": {
     "singleQuote": true,
@@ -81,5 +84,8 @@
     "tabWidth": 2,
     "useTabs": false
   },
-  "eslintIgnore": ["dist", "example/build"]
+  "eslintIgnore": [
+    "dist",
+    "example/build"
+  ]
 }
