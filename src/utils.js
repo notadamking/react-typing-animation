@@ -1,4 +1,5 @@
 import React, { Children } from 'react';
+import shortid from 'shortid';
 
 const voidHTMLElements = [
   'area',
@@ -21,7 +22,12 @@ const voidHTMLElements = [
 
 const flatten = arr =>
   arr.reduce(
-    (acc, item) => acc.concat(Array.isArray(item) ? flatten(item) : item),
+    (acc, item) =>
+      acc.concat(
+        Array.isArray(item)
+          ? Children.toArray(flatten(item))
+          : Children.toArray(item)
+      ),
     []
   );
 
@@ -32,8 +38,25 @@ const isTypingComponent = struct =>
     sub => struct.type && struct.type.getName && struct.type.getName() === sub
   );
 
-export const getRandomInRange = (min, max) =>
+export const randomInRange = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
+
+export const gaussianRandomInRange = (min, max) => {
+  let total = randomInRange(min, max);
+
+  for (let i = 0; i < 5; i++) {
+    total += randomInRange(min, max);
+  }
+
+  return Math.floor(total / 6);
+};
+
+export const randomize = (avg, randomPercentage = 0.2) => {
+  return gaussianRandomInRange(
+    avg + avg * randomPercentage,
+    avg - avg * randomPercentage
+  );
+};
 
 export const extractText = (...args) => {
   const traverse = node => {
@@ -56,7 +79,6 @@ export const extractText = (...args) => {
 };
 
 export const replaceTreeText = (tree, txt, cursor) => {
-  let i = 0;
   const traverse = (node, text) => {
     if (text.length < 1) {
       return undefined;
@@ -71,11 +93,12 @@ export const replaceTreeText = (tree, txt, cursor) => {
         }
         return text.shift() === '' ? undefined : node;
       }
+
       return React.createElement(
         node.type,
         {
           ...node.props,
-          key: `Typing.${node.type}.${(i += 1)}`,
+          key: node.props.key || `Typing.${shortid.generate()}`,
         },
         removeUndefined(
           Children.toArray(node.props.children).map(child =>
@@ -86,7 +109,9 @@ export const replaceTreeText = (tree, txt, cursor) => {
     } else if (Array.isArray(node)) {
       return removeUndefined(node.map(el => traverse(el, text)));
     }
-    return text.length === 1 ? [text.shift(), cursor] : text.shift() || '';
+    return text.length === 1
+      ? Children.toArray([text.shift(), cursor])
+      : text.shift() || '';
   };
   return traverse(tree, txt.slice());
 };

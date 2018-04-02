@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import requestAnimationFrame from 'raf';
+import { has, isEqual } from 'lodash';
 
-import { getRandomInRange, extractText, replaceTreeText } from './utils';
+import { randomize, extractText, replaceTreeText } from './utils';
 import Backspace from './Backspace';
 import Reset from './Reset';
 import Delay from './Delay';
@@ -10,113 +11,108 @@ import Speed from './Speed';
 import Cursor from './Cursor';
 
 class Typing extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    isFinished: false,
+    text: [],
+  };
 
-    this.state = {
+  componentWillReceiveProps({ children }) {
+    if (children && !isEqual(children, this.props.children)) {
+      this.resetState();
+    }
+  }
+
+  componentDidMount() {
+    this.hasMounted = true;
+    this.resetState().then(() => requestAnimationFrame(this.beginTyping));
+  }
+
+  componentWillUnmount() {
+    this.hasMounted = false;
+  }
+
+  updateState = async state => {
+    if (this.hasMounted) {
+      return new Promise(resolve => {
+        this.setState(state, resolve);
+      });
+    }
+  };
+
+  resetState = async () =>
+    this.updateState({
       text: [],
-      toType: [],
-      loop: props.loop,
+      toType: extractText(this.props.children),
       cursor: {
         lineNum: 0,
         charPos: 0,
         numToErase: 0,
         preEraseLineNum: 0,
-        delay: props.startDelay,
-        speed: props.speed,
+        delay: this.props.startDelay,
+        speed: this.props.speed,
         step: 'char',
       },
-    };
-  }
-
-  componentDidMount() {
-    requestAnimationFrame(() => {
-      if (!this.unmounted) {
-        this.setState(
-          {
-            toType: extractText(this.props.children),
-          },
-          () => {
-            this.beginTyping();
-          }
-        );
-      }
     });
-  }
 
-  componentWillUnmount() {
-    this.unmounted = true;
-  }
+  beginTyping = async () => {
+    const cursor = { ...this.state.cursor };
 
-  beginTyping = () => {
-    const recurse = () => {
-      const { toType, cursor, loop } = this.state;
-      if (toType.length > 0 || cursor.numToErase > 0) {
-        this.type().then(recurse);
+    if (this.state.toType.length > 0 || cursor.numToErase > 0) {
+      await this.type();
+    } else {
+      await this.props.onFinishedTyping();
+
+      if (this.props.loop) {
+        await this.resetState();
       } else {
-        Promise.resolve(this.props.onFinishedTyping()).then(() => {
-          if (loop) {
-            cursor.lineNum = 0;
-            cursor.charPos = 0;
-            cursor.numToErase = 0;
-            cursor.preEraseLineNum = 0;
-            cursor.delay = this.props.startDelay;
-            cursor.speed = this.props.speed;
-            cursor.step = 'char';
-
-            if (!this.unmounted) {
-              this.setState(
-                { cursor, text: [], toType: extractText(this.props.children) },
-                recurse
-              );
-            }
-          }
-        });
+        return this.updateState({ isFinished: true });
       }
-    };
-    recurse();
+    }
+
+    if (this.hasMounted) {
+      return this.beginTyping();
+    }
   };
 
-  type() {
-    const { toType } = this.state;
-    let { cursor } = this.state;
+  type = async () => {
+    const toType = [...this.state.toType];
+    let cursor = { ...this.state.cursor };
 
-    while (
-      toType[0] &&
-      toType[0].type &&
-      toType[0].type.updateCursor &&
-      cursor.numToErase < 1
-    ) {
+    while (has(toType, '0.type.updateCursor') && cursor.numToErase < 1) {
       cursor = toType[0].type.updateCursor(cursor, toType[0].props);
       toType.shift();
     }
 
-    const delay = cursor.delay;
-    cursor.delay = 0;
+    await this.updateState({ cursor, toType });
 
-    return new Promise(resolve => {
-      if (!this.unmounted) {
-        this.setState({ cursor, toType }, () => {
-          setTimeout(() => {
-            if (cursor.step === 'char' && cursor.numToErase < 1) {
-              if (toType.length > 0) {
-                this.typeCharacter().then(resolve);
-              } else {
-                resolve();
-              }
-            } else {
-              this.erase().then(resolve);
-            }
-          }, delay);
-        });
-      }
+    return this.animateNextStep();
+  };
+
+  animateNextStep = async () =>
+    new Promise(resolve => {
+      setTimeout(async () => {
+        const { cursor, toType } = this.state;
+
+        await this.updateState({ cursor: { ...cursor, delay: 0 } });
+
+        if (cursor.step === 'char' && cursor.numToErase < 1) {
+          if (toType.length > 0) {
+            await this.typeCharacter();
+          }
+        } else {
+          await this.erase();
+        }
+
+        resolve();
+      }, this.state.cursor.delay);
     });
-  }
 
-  typeCharacter() {
-    const { cursor, text, toType } = this.state;
+  typeCharacter = async () =>
+    new Promise(async resolve => {
+      const toType = [...this.state.toType];
+      const text = [...this.state.text];
+      const cursor = { ...this.state.cursor };
 
-    return new Promise(resolve => {
       if (text.length - 1 < cursor.lineNum) {
         text[cursor.lineNum] = '';
       }
@@ -130,22 +126,16 @@ class Typing extends Component {
         toType.shift();
       }
 
-      if (!this.unmounted) {
-        this.setState({ cursor, text, toType }, () => {
-          setTimeout(
-            resolve,
-            getRandomInRange(cursor.speed * 0.9, cursor.speed * 1.1)
-          );
-        });
-      }
+      await this.updateState({ cursor, text, toType });
+
+      setTimeout(resolve, randomize(cursor.speed));
     });
-  }
 
-  erase() {
-    const { cursor } = this.state;
-    let { text } = this.state;
+  erase = async () =>
+    new Promise(async resolve => {
+      const text = [...this.state.text];
+      const cursor = { ...this.state.cursor };
 
-    return new Promise(resolve => {
       while (cursor.lineNum > text.length - 1 || cursor.charPos < 0) {
         cursor.lineNum -= 1;
 
@@ -166,7 +156,7 @@ class Typing extends Component {
       } else if (cursor.numToErase > 0) {
         text[cursor.lineNum] = '';
       } else {
-        text = text.map(() => '');
+        text.length = 0;
       }
 
       cursor.charPos -= 1;
@@ -178,21 +168,20 @@ class Typing extends Component {
         cursor.step = 'char';
       }
 
-      if (!this.unmounted) {
-        return this.setState({ cursor, text }, () => {
-          setTimeout(
-            resolve,
-            getRandomInRange(cursor.speed * 0.9, cursor.speed * 1.1)
-          );
-        });
-      }
-      return resolve();
+      await this.updateState({ cursor, text });
+
+      setTimeout(resolve, randomize(cursor.speed));
     });
-  }
 
   render() {
-    const { children, className, cursor } = this.props;
-    const filled = replaceTreeText(children, this.state.text, cursor);
+    const { children, className, cursorClassName } = this.props;
+    const { isFinished } = this.state;
+
+    const cursor = this.props.cursor || <Cursor className={cursorClassName} />;
+    const filled = isFinished
+      ? children
+      : replaceTreeText(children, this.state.text, cursor);
+
     return <div className={className}>{filled}</div>;
   }
 }
@@ -201,6 +190,7 @@ Typing.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   cursor: PropTypes.node,
+  cursorClassName: PropTypes.string,
   speed: PropTypes.number,
   startDelay: PropTypes.number,
   loop: PropTypes.bool,
@@ -209,11 +199,11 @@ Typing.propTypes = {
 
 Typing.defaultProps = {
   className: '',
-  cursor: <Cursor />,
+  cursorClassName: '',
   speed: 50,
   startDelay: 0,
   loop: false,
-  onFinishedTyping: () => Promise.resolve(),
+  onFinishedTyping: () => {},
 };
 
 Typing.Backspace = Backspace;

@@ -1,33 +1,24 @@
 import React, { Component } from 'react';
 
 import styles from './App.css';
-import Typing, { Backspace, Cursor, Delay, Reset, Speed } from '../src';
+import Typing, { Backspace, Delay, Reset, Speed } from '../src';
 
 class App extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      showTitleCursor: true,
-      showFeatures: false,
-    };
-  }
+  state = {
+    showFeatures: false,
+  };
 
   showFeatures = () => {
-    this.setState({
-      showTitleCursor: false,
-      showFeatures: true,
-    });
+    this.setState({ showFeatures: true });
   };
 
   render() {
     return (
       <div className={styles.page}>
         <Typing
-          className={styles.title}
-          cursor={this.state.showTitleCursor ? <Cursor /> : <noscript />}
-          startDelay={1000}
           speed={50}
+          startDelay={1000}
+          className={styles.title}
           onFinishedTyping={this.showFeatures}
         >
           <h1>
@@ -39,6 +30,7 @@ class App extends Component {
           </h1>
           <Delay ms={1000} />
         </Typing>
+
         {this.state.showFeatures && (
           <Typing loop speed={50} className={styles.features}>
             <Delay ms={500} />

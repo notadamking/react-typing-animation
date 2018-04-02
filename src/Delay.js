@@ -3,9 +3,10 @@ import React from 'react';
 const Delay = () => <noscript />;
 
 Delay.updateCursor = (cursor, { ms }) => {
-  const nextCursor = cursor;
-  nextCursor.delay += ms;
-  return nextCursor;
+  return {
+    ...cursor,
+    delay: cursor.delay + ms,
+  };
 };
 
 Delay.getName = () => 'Delay';
