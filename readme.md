@@ -26,8 +26,6 @@ There were other JS typing animations that existed when I created this, but they
 
 ✅ No dependencies (CSS or JS)
 
-**Feature requests and pull requests welcome**
-
 ## Demo
 
 View the [live demo](https://adamjking3.github.io/react-typing-animation-example/)
@@ -42,6 +40,8 @@ npm start
 ```
 
 Then open http://localhost:3000/ in a browser.
+
+**Feature requests and pull requests welcome**
 
 ## Installation
 
@@ -147,16 +147,13 @@ import Typing from 'react-typing-animation';
 After cloning the repository and running npm install inside, you can use the following commands to develop and build the project.
 
 ```shell
-# Starts a webpack dev server that hosts a demo page with the component.
-# It uses react-hot-loader so changes are reflected on save.
+# Starts a webpack dev server that hosts the demo at http://localhost:3000
 npm start
 
 # Lints the code with eslint
 npm run lint
 
 # Lints and builds the code, placing the result in the dist directory.
-# This build is necessary to reflect changes if you're
-#  `npm link`-ed to this repository from another local project.
 npm run build
 ```
 
