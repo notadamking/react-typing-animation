@@ -26,6 +26,8 @@ There were other JS typing animations that existed when I created this, but they
 
 ✅ No dependencies (CSS or JS)
 
+**Feature requests and pull requests welcome**
+
 ## Demo
 
 View the [live demo](https://adamjking3.github.io/react-typing-animation-example/)
@@ -61,15 +63,15 @@ const AnimatedTypingComponent = () => (
 
 ## Documentation
 
-|     Property     |    Type    |                                           Default                                           | Required |
-| :--------------: | :--------: | :-------------------------------------------------------------------------------------------: | :------: |
-|     children     | React node |                                                                                               |   yes    |
-|    className     |   string   |                                                                                               |    no    |
-|      cursor      | React node | [`<Cursor />`](https://github.com/adamjking3/react-typing-animation/blob/master/src/Cursor.js)  |    no    |
-|      speed       |   number   |                                            50 (ms)                                            |    no    |
-|    startDelay    |   number   |                                             0 (ms)                                            |    no    |
-|       loop       |  boolean   |                                            false                                              |    no    |
-| onFinishedTyping |  function  |                                          () => {}                                             |    no    |
+|     Property     |    Type    |                                            Default                                             | Required |
+| :--------------: | :--------: | :--------------------------------------------------------------------------------------------: | :------: |
+|     children     | React node |                                                                                                |   yes    |
+|    className     |   string   |                                                                                                |    no    |
+|      cursor      | React node | [`<Cursor />`](https://github.com/adamjking3/react-typing-animation/blob/master/src/Cursor.js) |    no    |
+|      speed       |   number   |                                            50 (ms)                                             |    no    |
+|    startDelay    |   number   |                                             0 (ms)                                             |    no    |
+|       loop       |  boolean   |                                             false                                              |    no    |
+| onFinishedTyping |  function  |                                            () => {}                                            |    no    |
 
 ### Backspace Component
 
@@ -149,7 +151,7 @@ After cloning the repository and running npm install inside, you can use the fol
 # It uses react-hot-loader so changes are reflected on save.
 npm start
 
-# Lints the code with eslint and my custom rules.
+# Lints the code with eslint
 npm run lint
 
 # Lints and builds the code, placing the result in the dist directory.

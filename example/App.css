@@ -46,9 +46,6 @@
       left: calc(100% + 15px);
     }
   }
-
-  & > span {
-  }
 }
 
 .features {
