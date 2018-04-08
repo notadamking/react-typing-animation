@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import requestAnimationFrame from 'raf';
-import { has, isEqual } from 'lodash';
 
 import { randomize, extractText, replaceTreeText } from './utils';
 import Backspace from './Backspace';
@@ -17,7 +16,10 @@ class Typing extends Component {
   };
 
   componentWillReceiveProps({ children }) {
-    if (children && !isEqual(children, this.props.children)) {
+    if (
+      children !== undefined &&
+      JSON.stringify(children) !== JSON.stringify(this.props.children)
+    ) {
       this.resetState();
     }
   }
@@ -78,7 +80,13 @@ class Typing extends Component {
     const toType = [...this.state.toType];
     let cursor = { ...this.state.cursor };
 
-    while (has(toType, '0.type.updateCursor') && cursor.numToErase < 1) {
+    while (
+      toType &&
+      toType[0] &&
+      toType[0].type &&
+      toType[0].type.updateCursor &&
+      cursor.numToErase < 1
+    ) {
       cursor = toType[0].type.updateCursor(cursor, toType[0].props);
       toType.shift();
     }
