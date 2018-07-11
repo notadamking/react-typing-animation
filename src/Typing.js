@@ -20,7 +20,7 @@ class Typing extends Component {
       var oldKeys = this.props.children.map( child => child.key);
       var newKeys = children.map( child => child.key);
 
-      if (oldKeys !== newKeys) {
+      if (JSON.stringify(oldKeys) !== JSON.stringify(newKeys)) {
         this.resetState();
       }
     }
