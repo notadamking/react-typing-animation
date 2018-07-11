@@ -17,8 +17,8 @@ class Typing extends Component {
 
   componentWillReceiveProps({ children }) {
     if (children !== undefined) {
-      var oldKeys = this.props.children.map( child => child.key);
-      var newKeys = children.map( child => child.key);
+      const oldKeys = this.props.children.map(child => child.key);
+      const newKeys = children.map(child => child.key);
 
       if (JSON.stringify(oldKeys) !== JSON.stringify(newKeys)) {
         this.resetState();
