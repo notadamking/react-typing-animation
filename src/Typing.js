@@ -16,11 +16,13 @@ class Typing extends Component {
   };
 
   componentWillReceiveProps({ children }) {
-    if (
-      children !== undefined &&
-      JSON.stringify(children) !== JSON.stringify(this.props.children)
-    ) {
-      this.resetState();
+    if (children !== undefined) {
+      const oldKeys = this.props.children.map(child => child.key);
+      const newKeys = children.map(child => child.key);
+
+      if (JSON.stringify(oldKeys) !== JSON.stringify(newKeys)) {
+        this.resetState();
+      }
     }
   }
 
