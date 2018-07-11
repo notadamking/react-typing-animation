@@ -58,7 +58,6 @@
     "webpack-hot-middleware": "^2.21.2"
   },
   "dependencies": {
-    "json-circular": "^0.0.1",
     "raf": "^3.4.0",
     "shortid": "^2.2.8",
     "styled-components": "^1.4.6"
