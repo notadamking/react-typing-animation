@@ -9,6 +9,19 @@ import Delay from './Delay';
 import Speed from './Speed';
 import Cursor from './Cursor';
 
+const getCircularReplacer = () => {
+  const seen = new WeakSet;
+  return (key, value) => {
+    if (typeof value === "object" && value !== null) {
+      if (seen.has(value)) {
+        return;
+      }
+      seen.add(value);
+    }
+    return value;
+  };
+};
+
 class Typing extends Component {
   state = {
     isFinished: false,
@@ -18,7 +31,7 @@ class Typing extends Component {
   componentWillReceiveProps({ children }) {
     if (
       children !== undefined &&
-      JSON.stringify(children) !== JSON.stringify(this.props.children)
+      JSON.stringify(children, getCircularReplacer()) !== JSON.stringify(this.props.children, getCircularReplacer())
     ) {
       this.resetState();
     }
