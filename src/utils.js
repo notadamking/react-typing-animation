@@ -115,3 +115,17 @@ export const replaceTreeText = (tree, txt, cursor) => {
   };
   return traverse(tree, txt.slice());
 };
+
+export const getCircularReplacer = () => {
+  const seen = new WeakSet();
+
+  return (key, value) => {
+    if (typeof value === 'object' && value !== null) {
+      if (seen.has(value)) {
+        return;
+      }
+      seen.add(value);
+    }
+    return value;
+  };
+};

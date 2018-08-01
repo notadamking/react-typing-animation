@@ -2,25 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import requestAnimationFrame from 'raf';
 
-import { randomize, extractText, replaceTreeText } from './utils';
+import {
+  randomize,
+  extractText,
+  replaceTreeText,
+  getCircularReplacer,
+} from './utils';
 import Backspace from './Backspace';
 import Reset from './Reset';
 import Delay from './Delay';
 import Speed from './Speed';
 import Cursor from './Cursor';
-
-const getCircularReplacer = () => {
-  const seen = new WeakSet;
-  return (key, value) => {
-    if (typeof value === "object" && value !== null) {
-      if (seen.has(value)) {
-        return;
-      }
-      seen.add(value);
-    }
-    return value;
-  };
-};
 
 class Typing extends Component {
   state = {
@@ -31,7 +23,8 @@ class Typing extends Component {
   componentWillReceiveProps({ children }) {
     if (
       children !== undefined &&
-      JSON.stringify(children, getCircularReplacer()) !== JSON.stringify(this.props.children, getCircularReplacer())
+      JSON.stringify(children, getCircularReplacer()) !==
+        JSON.stringify(this.props.children, getCircularReplacer())
     ) {
       this.resetState();
     }
