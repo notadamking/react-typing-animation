@@ -98,7 +98,7 @@ export const replaceTreeText = (tree, txt, cursor) => {
         node.type,
         {
           ...node.props,
-          key: node.props.ref || `Typing.${shortid.generate()}`,
+          key: `Typing.${shortid.generate()}`,
         },
         removeUndefined(
           Children.toArray(node.props.children).map(child =>
