@@ -69,6 +69,7 @@ const AnimatedTypingComponent = () => (
 |    className     |   string   |                                                                                                |    no    |
 |    cursorClassName     |   string   |                                                                                                |    no    |
 |      cursor      | React node | [`<Cursor />`](https://github.com/adamjking3/react-typing-animation/blob/master/src/Cursor.js) |    no    |
+|      hideCursor      |  boolean   |                                             false                                              |    no    |
 |      speed       |   number   |                                            50 (ms)                                             |    no    |
 |    startDelay    |   number   |                                             0 (ms)                                             |    no    |
 |       loop       |  boolean   |                                             false                                              |    no    |

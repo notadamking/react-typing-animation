@@ -78,7 +78,7 @@ export const extractText = (...args) => {
     : removeUndefined([text]);
 };
 
-export const replaceTreeText = (tree, txt, cursor) => {
+export const replaceTreeText = (tree, txt, cursor, hideCursor) => {
   const traverse = (node, text) => {
     if (text.length < 1) {
       return undefined;
@@ -89,7 +89,7 @@ export const replaceTreeText = (tree, txt, cursor) => {
     } else if (React.isValidElement(node)) {
       if (voidHTMLElements.indexOf(node.type) !== -1) {
         if (text.length === 1) {
-          return [text.shift() === '' ? undefined : node, cursor];
+          return [text.shift() === '' ? undefined : node, hideCursor ? null : cursor];
         }
         return text.shift() === '' ? undefined : node;
       }
@@ -110,7 +110,7 @@ export const replaceTreeText = (tree, txt, cursor) => {
       return removeUndefined(node.map(el => traverse(el, text)));
     }
     return text.length === 1
-      ? Children.toArray([text.shift(), cursor])
+      ? Children.toArray([text.shift(), hideCursor ? null : cursor])
       : text.shift() || '';
   };
   return traverse(tree, txt.slice());
