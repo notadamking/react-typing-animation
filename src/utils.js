@@ -124,7 +124,14 @@ export const getCircularReplacer = () => {
       if (seen.has(value)) {
         return;
       }
-      seen.add(value);
+      try {
+        seen.add(value);
+      } catch (e) {
+        // The following will break MS Edge:
+        // seen.add(window.location);
+        // See:
+        // https://github.com/Microsoft/ChakraCore/pull/3522
+      }
     }
     return value;
   };
