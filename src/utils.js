@@ -126,7 +126,7 @@ export const getCircularReplacer = () => {
       }
       try {
         seen.add(value);
-      } catch (e if e instanceof TypeError) {
+      } catch (e) {
         // The following will break MS Edge:
         // seen.add(window.location);
         // See:
