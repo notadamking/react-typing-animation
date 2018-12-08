@@ -73,6 +73,8 @@ const AnimatedTypingComponent = () => (
 |      speed       |   number   |                                            50 (ms)                                             |    no    |
 |    startDelay    |   number   |                                             0 (ms)                                             |    no    |
 |       loop       |  boolean   |                                             false                                              |    no    |
+| onStartedTyping |  function  |                                            () => {}                                            |    no    |
+| onTyping |  function  |                                            () => {}                                            |    no    |
 | onFinishedTyping |  function  |                                            () => {}                                            |    no    |
 
 ### Backspace Component

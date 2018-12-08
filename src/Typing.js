@@ -32,7 +32,10 @@ class Typing extends Component {
 
   componentDidMount() {
     this.hasMounted = true;
-    this.resetState().then(() => requestAnimationFrame(this.beginTyping));
+    this.resetState().then(async () => {
+      await this.props.onStartedTyping();
+      requestAnimationFrame(this.beginTyping);
+    })
   }
 
   componentWillUnmount() {
@@ -66,6 +69,7 @@ class Typing extends Component {
     const cursor = { ...this.state.cursor };
 
     if (this.state.toType.length > 0 || cursor.numToErase > 0) {
+      await this.props.onTyping(this.state.text);
       await this.type();
     } else {
       await this.props.onFinishedTyping();
@@ -208,6 +212,8 @@ Typing.propTypes = {
   speed: PropTypes.number,
   startDelay: PropTypes.number,
   loop: PropTypes.bool,
+  onTyping: PropTypes.func,
+  onStartedTyping: PropTypes.func,
   onFinishedTyping: PropTypes.func,
 };
 
@@ -217,6 +223,8 @@ Typing.defaultProps = {
   speed: 50,
   startDelay: 0,
   loop: false,
+  onTyping: () => {},
+  onStartedTyping: () => {},
   onFinishedTyping: () => {},
 };
 
