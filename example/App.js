@@ -21,7 +21,8 @@ class App extends Component {
           className={styles.title}
           onFinishedTyping={this.showFeatures}
           onStartedTyping={() => console.log('started typing')}
-          onTyping={(text) => console.log(text)}
+          onBeforeType={(text) => console.log('onBeforeType', text)}
+          onAfterType={(text) => console.log('onAfterType', text)}
         >
           <h1>
             <a href="https://github.com/adamjking3/react-typing-animation">
