@@ -69,8 +69,9 @@ class Typing extends Component {
     const cursor = { ...this.state.cursor };
 
     if (this.state.toType.length > 0 || cursor.numToErase > 0) {
-      await this.props.onTyping(this.state.text);
+      await this.props.onBeforeType(this.state.text);
       await this.type();
+      await this.props.onAfterType(this.state.text);
     } else {
       await this.props.onFinishedTyping();
 
@@ -212,8 +213,9 @@ Typing.propTypes = {
   speed: PropTypes.number,
   startDelay: PropTypes.number,
   loop: PropTypes.bool,
-  onTyping: PropTypes.func,
   onStartedTyping: PropTypes.func,
+  onBeforeType: PropTypes.func,
+  onAfterType: PropTypes.func,
   onFinishedTyping: PropTypes.func,
 };
 
@@ -223,8 +225,9 @@ Typing.defaultProps = {
   speed: 50,
   startDelay: 0,
   loop: false,
-  onTyping: () => {},
   onStartedTyping: () => {},
+  onBeforeType: () => {},
+  onAfterType: () => {},
   onFinishedTyping: () => {},
 };
 
