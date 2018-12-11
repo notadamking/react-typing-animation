@@ -26,7 +26,7 @@ class Typing extends Component {
       JSON.stringify(children, getCircularReplacer()) !==
         JSON.stringify(this.props.children, getCircularReplacer())
     ) {
-      this.resetState();
+      // this.resetState();
     }
   }
 
@@ -197,9 +197,11 @@ class Typing extends Component {
     const { isFinished } = this.state;
 
     const cursor = this.props.cursor || <Cursor className={cursorClassName} />;
-    const filled = isFinished
-      ? children
-      : replaceTreeText(children, this.state.text, cursor, hideCursor);
+
+    const filled = replaceTreeText(children, this.state.text, cursor, isFinished ? true : hideCursor)
+    // const filled = isFinished
+    //   ? children
+    //   : replaceTreeText(children, this.state.text, cursor, hideCursor)
 
     return <div className={className}>{filled}</div>;
   }

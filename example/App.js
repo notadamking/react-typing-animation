@@ -20,9 +20,9 @@ class App extends Component {
           startDelay={1000}
           className={styles.title}
           onFinishedTyping={this.showFeatures}
-          onStartedTyping={() => console.log('started typing')}
-          onBeforeType={(text) => console.log('onBeforeType', text)}
-          onAfterType={(text) => console.log('onAfterType', text)}
+          // onStartedTyping={() => console.log('started typing')}
+          // onBeforeType={(text) => console.log('onBeforeType', text)}
+          // onAfterType={(text) => console.log('onAfterType', text)}
         >
           <h1>
             <a href="https://github.com/adamjking3/react-typing-animation">
@@ -30,6 +30,7 @@ class App extends Component {
             </a>
             <Delay ms={500} />
             <span className={styles.dependencies}>* zero dependencies</span>
+            <Backspace count={10} />
           </h1>
           <Delay ms={1000} />
         </Typing>
