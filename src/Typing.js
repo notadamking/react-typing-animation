@@ -26,7 +26,7 @@ class Typing extends Component {
       JSON.stringify(children, getCircularReplacer()) !==
         JSON.stringify(this.props.children, getCircularReplacer())
     ) {
-      // this.resetState();
+      this.resetState();
     }
   }
 
@@ -52,7 +52,6 @@ class Typing extends Component {
 
   resetState = async () =>
     this.updateState({
-      text: [],
       toType: extractText(this.props.children),
       cursor: {
         lineNum: 0,
@@ -194,11 +193,11 @@ class Typing extends Component {
 
   render() {
     const { children, className, cursorClassName, hideCursor } = this.props;
-    const { isFinished } = this.state;
+    const { isFinished, text } = this.state;
 
     const cursor = this.props.cursor || <Cursor className={cursorClassName} />;
 
-    const filled = replaceTreeText(children, this.state.text, cursor, isFinished ? true : hideCursor)
+    const filled = replaceTreeText(children, text, cursor, isFinished || hideCursor)
 
     return <div className={className}>{filled}</div>;
   }
