@@ -35,7 +35,7 @@ class Typing extends Component {
     this.resetState().then(async () => {
       await this.props.onStartedTyping();
       requestAnimationFrame(this.beginTyping);
-    })
+    });
   }
 
   componentWillUnmount() {
@@ -197,7 +197,12 @@ class Typing extends Component {
 
     const cursor = this.props.cursor || <Cursor className={cursorClassName} />;
 
-    const filled = replaceTreeText(children, text, cursor, isFinished || hideCursor)
+    const filled = replaceTreeText(
+      children,
+      text,
+      cursor,
+      isFinished || hideCursor
+    );
 
     return <div className={className}>{filled}</div>;
   }

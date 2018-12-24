@@ -89,7 +89,10 @@ export const replaceTreeText = (tree, txt, cursor, hideCursor) => {
     } else if (React.isValidElement(node)) {
       if (voidHTMLElements.indexOf(node.type) !== -1) {
         if (text.length === 1) {
-          return [text.shift() === '' ? undefined : node, hideCursor ? null : cursor];
+          return Children.toArray([
+            text.shift() === '' ? undefined : node,
+            hideCursor ? null : cursor,
+          ]);
         }
         return text.shift() === '' ? undefined : node;
       }
