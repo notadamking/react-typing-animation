@@ -20,11 +20,13 @@ class Typing extends Component {
     text: [],
   };
 
-  componentWillReceiveProps({ children }) {
+  componentDidUpdate(prevProps) {
+    const { children } = this.props;
+
     if (
       children !== undefined &&
       JSON.stringify(children, getCircularReplacer()) !==
-        JSON.stringify(this.props.children, getCircularReplacer())
+        JSON.stringify(prevProps.children, getCircularReplacer())
     ) {
       this.resetState();
     }
