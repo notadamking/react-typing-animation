@@ -194,7 +194,7 @@ class Typing extends Component {
     });
 
   render() {
-    const { children, className, cursorClassName, hideCursor } = this.props;
+    const { element, children, className, cursorClassName, hideCursor } = this.props;
     const { isFinished, text } = this.state;
 
     const cursor = this.props.cursor || <Cursor className={cursorClassName} />;
@@ -206,11 +206,15 @@ class Typing extends Component {
       isFinished || hideCursor
     );
 
-    return <div className={className}>{filled}</div>;
+    return React.createElement(element, {
+      className,
+      children: filled,
+    });
   }
 }
 
 Typing.propTypes = {
+  element: PropTypes.string,
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   cursor: PropTypes.node,
@@ -225,6 +229,7 @@ Typing.propTypes = {
 };
 
 Typing.defaultProps = {
+  element: 'div',
   className: '',
   cursorClassName: '',
   speed: 50,
