@@ -65,6 +65,7 @@ const AnimatedTypingComponent = () => (
 
 |     Property     |    Type    |                                            Default                                             | Required |
 | :--------------: | :--------: | :--------------------------------------------------------------------------------------------: | :------: |
+|     element     | string |   div                                                                                             |   no    |
 |     children     | React node |                                                                                                |   yes    |
 |    className     |   string   |                                                                                                |    no    |
 |    cursorClassName     |   string   |                                                                                                |    no    |
