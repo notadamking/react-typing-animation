@@ -65,9 +65,11 @@ const AnimatedTypingComponent = () => (
 
 |     Property     |    Type    |                                            Default                                             | Required |
 | :--------------: | :--------: | :--------------------------------------------------------------------------------------------: | :------: |
+|     element     | string |   div                                                                                             |   no    |
 |     children     | React node |                                                                                                |   yes    |
 |    className     |   string   |                                                                                                |    no    |
 |    cursorClassName     |   string   |                                                                                                |    no    |
+|     cursorElement     | string |   span                                                                                             |   no    |
 |      cursor      | React node | [`<Cursor />`](https://github.com/adamjking3/react-typing-animation/blob/master/src/Cursor.js) |    no    |
 |      hideCursor      |  boolean   |                                             false                                              |    no    |
 |      speed       |   number   |                                            50 (ms)                                             |    no    |
@@ -77,6 +79,8 @@ const AnimatedTypingComponent = () => (
 | onBeforeType |  function  |                                            () => {}                                            |    no    |
 | onAfterType |  function  |                                            () => {}                                            |    no    |
 | onFinishedTyping |  function  |                                            () => {}                                            |    no    |
+
+*Note: if `cursorElement` is set as an empty string, a React.Fragment element will be used to wrap children.*
 
 ### Backspace Component
 
