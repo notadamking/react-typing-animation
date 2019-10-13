@@ -60,7 +60,7 @@
   "dependencies": {
     "raf": "^3.4.0",
     "shortid": "^2.2.8",
-    "styled-components": "^1.4.6"
+    "styled-components": "^4.4.0"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",
