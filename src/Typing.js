@@ -26,7 +26,7 @@ class Typing extends Component {
     if (
       children !== undefined &&
       JSON.stringify(children, getCircularReplacer()) !==
-        JSON.stringify(prevProps.children, getCircularReplacer())
+      JSON.stringify(prevProps.children, getCircularReplacer())
     ) {
       this.resetState();
     }
@@ -194,10 +194,10 @@ class Typing extends Component {
     });
 
   render() {
-    const { children, className, cursorClassName, hideCursor } = this.props;
+    const { children, className, element, cursorClassName, cursorElement, hideCursor } = this.props;
     const { isFinished, text } = this.state;
 
-    const cursor = this.props.cursor || <Cursor className={cursorClassName} />;
+    const cursor = this.props.cursor || <Cursor element={cursorElement} className={cursorClassName} />;
 
     const filled = replaceTreeText(
       children,
@@ -206,15 +206,23 @@ class Typing extends Component {
       isFinished || hideCursor
     );
 
-    return <div className={className}>{filled}</div>;
+    return element != '' ?
+      React.createElement(element, {
+        className,
+        children: filled,
+      }) :
+      <React.Fragment>{filled}</React.Fragment>
+      ;
   }
 }
 
 Typing.propTypes = {
+  element: PropTypes.string,
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   cursor: PropTypes.node,
   cursorClassName: PropTypes.string,
+  cursorElement: PropTypes.string,
   speed: PropTypes.number,
   startDelay: PropTypes.number,
   loop: PropTypes.bool,
@@ -227,13 +235,15 @@ Typing.propTypes = {
 Typing.defaultProps = {
   className: '',
   cursorClassName: '',
+  cursorElement: '',
   speed: 50,
   startDelay: 0,
   loop: false,
-  onStartedTyping: () => {},
-  onBeforeType: () => {},
-  onAfterType: () => {},
-  onFinishedTyping: () => {},
+  element: 'div',
+  onStartedTyping: () => { },
+  onBeforeType: () => { },
+  onAfterType: () => { },
+  onFinishedTyping: () => { },
 };
 
 Typing.Backspace = Backspace;
